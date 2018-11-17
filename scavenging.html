@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="clockpicker/jquery-clockpicker.min.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="clockpicker/jquery-clockpicker.min.js"></script>
+		
+		<style>
+			#time-picker {
+				font-size: 26px;
+			}
+			table.table tr td { font-size: 16px; }
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<label for="time-picker">Powrót na </label>
+			<input id="time-picker" placeholder="HH:mm" value="12:00" data-default="12:00">
+		</div>
+		<table id="unitsForTime" class="table">
+		  <thead class="thead-dark">
+			<tr>
+			  <th scope="col">Jednostka</th>
+			  <th scope="col">Do wys³ania</th>
+			  <th scope="col">I</th>
+			  <th scope="col">II</th>
+			  <th scope="col">III</th>
+			  <th scope="col">IV</th>
+			</tr>
+		  </thead>
+		  <tbody>
+		  </tbody>
+		</table>
+	</body>	
+	<script src="data.js"></script>
+	<script src="scavenging.js"></script>
+</html>
