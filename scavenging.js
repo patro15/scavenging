@@ -26,44 +26,27 @@ function insertTimeTableRow(unit) {
 			.on('mousewheel', e => {})
 		);
 	
-	for (let lvlId = 0; lvlId < collectingFactors.length; lvlId++) {
-		unitRow = unitRow.append(td('0').attr('id', unit.id + lvlId));
+	for (let levelId = 0; levelId < collectingFactors.length; levelId++) {
+		unitRow = unitRow.append(td(0).attr('id', unitsCellId(unit.id, levelId)));
 	}
 		
-	$("#unitsForTime")
+	$('#unitsForTime')
 		.find('tbody').append(unitRow);		
+}
+
+function td(text) {
+	return $('<td>').text(text);
+}
+
+function clearUnits() {
+	for (unit of units) {
+		$(`#${unit.id}`).val(0);
+	}
+	updateUnitsTable();
 }
 
 function updateUnitsTable() {
 	fillUnitsForTimeTable(getCollectingTime());
-}
-
-function getCollectingTime() {
-	targetTime = getTargetTime();
-	if (targetTime == undefined) {
-		return 0;
-	}
-	collectingTime = targetTime - getCurrentTime();
-	if (collectingTime <= 0) {
-		collectingTime += DAY;
-	}
-	return collectingTime;
-}
-
-function getTargetTime() {
-	textTime = $('#time-picker').val();
-	if (!TARGET_TIME_PATTERN.test(textTime)) {
-		return undefined;
-	}
-	hourMinute = textTime.split(':');
-	hour = parseInt(hourMinute[0]);
-	minute = parseInt(hourMinute[1]);
-	return 60 * hour + minute;
-}
-
-function getCurrentTime() {
-	currentDate = new Date();
-	return currentDate.getHours() * 60 + currentDate.getMinutes() + currentDate.getSeconds() / 60;
 }
 
 function fillUnitsForTimeTable(collectingTime) {
@@ -93,23 +76,6 @@ function getMaterialAmountForTime(materialTimes, collectingTime) {
 	return interpolateMaterialAmount(surroundingTimeRows[0], surroundingTimeRows[1], collectingTime);
 }
 
-function getUnitAmount(unit, collectingFactor, material) {
-	collectingResources = material / collectingFactor;
-	collectingResources -= getAlreadyAllocatedResources();
-	return Math.max(0, Math.floor(collectingResources / unit.capacity));
-}
-
-function getAlreadyAllocatedResources() {
-	let resources = 0;
-	for (let unit of units) {
-		let allocatedUnits = parseInt($(`#${unit.id}`).val());
-		if (!isNaN(allocatedUnits)) {
-			resources += allocatedUnits * unit.capacity;
-		}
-	}
-	return resources;
-}
-
 function findSurroundingTimeRows(materialTimes, time) {
 	for (row of materialTimes) {
 		if (time >= row.time) {
@@ -132,21 +98,65 @@ function interpolateMaterialAmount(lowerPoint, upperPoint, time) {
 	return lowerMaterial + scaleFactor * (upperMaterial - lowerMaterial);
 }
 
+function getUnitAmount(unit, collectingFactor, material) {
+	collectingResources = material / collectingFactor;
+	collectingResources -= getAlreadyAllocatedResources();
+	return Math.max(0, Math.floor(collectingResources / unit.capacity));
+}
+
+function getAlreadyAllocatedResources() {
+	let resources = 0;
+	for (let unit of units) {
+		let allocatedUnits = parseInt($(`#${unit.id}`).val());
+		if (!isNaN(allocatedUnits)) {
+			resources += allocatedUnits * unit.capacity;
+		}
+	}
+	return resources;
+}
+
 function updateUnitAmounts(unit, amounts) {
-	for (let [lvlId, amount] of amounts.entries()) {
-		$(`#${unit.id + lvlId}`).text(amount);
+	for (let [levelId, amount] of amounts.entries()) {
+		$(`#${unitsCellId(unit.id, levelId)}`).text(amount);
 	}
 }
 
-function td(text) {
-	return $('<td>').text(text);
+function unitsCellId(unitId, levelId) {
+	return unitId + levelId;
 }
 
-function clearUnits() {
-	for (unit of units) {
-		$(`#${unit.id}`).val(0);
+function getCollectingTime() {
+	targetTime = getTargetTime();
+	if (targetTime == undefined) {
+		return 0;
 	}
-	updateUnitsTable();
+	collectingTime = targetTime - getCurrentTime();
+	if (collectingTime <= 0) {
+		collectingTime += DAY;
+	}
+	return collectingTime;
+}
+
+function getTargetTime() {
+	textTime = $('#time-picker').val();
+	if (!TARGET_TIME_PATTERN.test(textTime)) {
+		return undefined;
+	}
+	return parseTime(textTime);
+}
+
+function parseTime(textTime) {
+	hourMinute = textTime.split(':');
+	hours = parseInt(hourMinute[0]);
+	minutes = parseInt(hourMinute[1]);
+	return 60 * hours + minutes;	
+}
+
+function getCurrentTime() {
+	currentDate = new Date();
+	return currentDate.getHours() * 60
+		 + currentDate.getMinutes()
+		 + currentDate.getSeconds() / 60;
 }
 
 main();
