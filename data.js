@@ -16,10 +16,10 @@ units = [
 	new Unit('pik', 'Pikinier', 25),
 	new Unit('miecz', 'Miecznik', 15),
 	new Unit('top', 'Topornik', 10),
-	new Unit('luk', '£ucznik', 10),
+	new Unit('luk', '≈Åucznik', 10),
 	new Unit('lk', 'Lekki kawalerzysta', 80),
-	new Unit('lnk', '£ucznik na koniu', 50),
-	new Unit('ck', 'CiÍøki kawalerzysta', 50)
+	new Unit('lnk', '≈Åucznik na koniu', 50),
+	new Unit('ck', 'Ciƒô≈ºki kawalerzysta', 50)
 ];
 
 collectingFactors = [0.1, 0.25, 0.5, 0.75];

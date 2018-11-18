@@ -142,4 +142,11 @@ function td(text) {
 	return $('<td>').text(text);
 }
 
+function clearUnits() {
+	for (unit of units) {
+		$(`#${unit.id}`).val(0);
+	}
+	updateUnitsTable();
+}
+
 main();
