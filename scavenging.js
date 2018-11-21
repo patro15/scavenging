@@ -21,7 +21,7 @@ function generateTimeTable() {
 function insertTimeTableRow(unit) {
 	unitRow = $('<tr>')
 		.append(td(unit.name))
-		.append($(`<input type="number" id="${unit.id}" name="quantity" value="0" min="0" max="25000">`)
+		.append($(`<input type="number" id="${unit.id}" name="quantity" value="" min="0" max="25000">`)
 			.on('input', updateUnitsTable)
 			.on('mousewheel', e => {})
 		);
@@ -40,7 +40,7 @@ function td(text) {
 
 function clearUnits() {
 	for (unit of units) {
-		$(`#${unit.id}`).val(0);
+		$(`#${unit.id}`).val("");
 	}
 	updateUnitsTable();
 }
