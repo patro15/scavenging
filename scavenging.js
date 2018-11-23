@@ -20,10 +20,16 @@ function generateTimeTable() {
 
 function insertTimeTableRow(unit) {
 	unitRow = $('<tr>')
-		.append(td(unit.name))
-		.append($(`<input type="number" id="${unit.id}" name="quantity" value="" min="0" max="25000">`)
-			.on('input', updateUnitsTable)
-			.on('mousewheel', e => {})
+		.append($('<td>')
+			.append($('<span>').attr('style', "white-space:nowrap")
+				.append($(`<label>`).attr('for', unit.id)
+					.append($('<img>').attr('src', unit.img))
+				)
+				.append($(`<input type="number" id="${unit.id}" name="quantity" value="" min="0" max="25000">`)
+					.on('input', updateUnitsTable)
+					.on('mousewheel', e => {})
+				)
+			)
 		);
 	
 	for (let levelId = 0; levelId < collectingFactors.length; levelId++) {

@@ -14,28 +14,20 @@
 		<style>
 			#time-picker {
 				font-size: 26px;
+				max-width: 200px;
 			}
-			table.table tr td { font-size: 16px; }
+			table.table tr td { font-size: 16px; padding-bottom: 0px; padding-top: 4px; }
+			label { padding-right: 10px; }
+			input.btn-warning { font-size: 18px; }
+			.popover { margin-top: -50px !important; margin-left: 65px !important; }
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<label for="time-picker">Powrót na </label>
+		<span style="white-space:nowrap">
+			<input class="btn btn-warning" type="reset" onclick="clearUnits()" value="Wyczyść">
 			<input id="time-picker" placeholder="HH:mm" value="12:00" data-default="12:00">
-		</div>
+		</span>
 		<table id="unitsForTime" class="table">
-		  <thead class="thead-dark">
-			<tr>
-				<th scope="col">Jednostka</th>
-				<th scope="col">Do wysłania
-					<input class="btn btn-warning" type="reset" onclick="clearUnits()" value="Wyczyść">
-				</th>
-				<th scope="col">I</th>
-				<th scope="col">II</th>
-				<th scope="col">III</th>
-				<th scope="col">IV</th>
-			</tr>
-		  </thead>
 		  <tbody>
 		  </tbody>
 		</table>
